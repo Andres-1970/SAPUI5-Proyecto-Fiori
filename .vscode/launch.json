@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run ui5-Employees",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/ui5-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/sapui5Employees/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/Employees",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/ui5/Employees\"}"
+      },
+      "envFile": "${workspaceFolder}/Employees/.env3",
+      "preLaunchTask": "Build ui5"
+    }
+  ]
+}
