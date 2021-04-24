@@ -13,28 +13,8 @@ sap.ui.define([
         "use strict";
 
         function onInit() {
-
-            var oView = this.getView();
-            //var i18nBundle = oView.getModel("i18n").getResourceBundle();
-
-            // @ts-ignore
-            var oJSONModelEmpl = new sap.ui.model.json.JSONModel();
-            oJSONModelEmpl.loadData("./localService/mockdata/Employees.json", false);
-            oView.setModel(oJSONModelEmpl, "jsonEmployees");
-
-            var oJSONModelCountries = new sap.ui.model.json.JSONModel();
-            oJSONModelCountries.loadData("./localService/mockdata/Countries.json", false);
-            oView.setModel(oJSONModelCountries, "jsonCountries");
-
-            var oJSONModelConfig = new sap.ui.model.json.JSONModel({
-                visibleID: true,
-                visibleName: true,
-                visibleCountry: true,
-                visibleCity: false,
-                visibleBtnShowCity: true,
-                visibleBtnHideCity: false
-            });
-            oView.setModel(oJSONModelConfig, "jsonModelConfig");
+            this._bus = sap.ui.getCore().getEventBus();
+    
         }
 
         function onFilter() {
@@ -92,7 +72,7 @@ sap.ui.define([
             var iconPressed = oEvent.getSource();
 
             //Context from teh model
-            var oContext = iconPressed.getBindingContext("jsonEmployees");
+            var oContext = iconPressed.getBindingContext("odataNorthwind");
 
             if (!this._oDialogOrders) {
                 this._oDialogOrders = sap.ui.xmlfragment("sapui5.Employees.fragment.DialogOrders", this);
@@ -100,13 +80,18 @@ sap.ui.define([
             };
 
             //Dialog binding to the Context to have access to the data of selected item
-            this._oDialogOrders.bindElement("jsonEmployees>" + oContext.getPath());
+            this._oDialogOrders.bindElement("odataNorthwind>" + oContext.getPath());
             this._oDialogOrders.open();
         };
 
         function onCloseOrders() {
             this._oDialogOrders.close();
         };
+
+        function showEmployee(oEvent) {
+            var path = oEvent.getSource().getBindingContext("odataNorthwind").getPath();
+            this._bus.publish("flexible", "showEmployee", path)
+        }
 
         // var ordersTable = this.getView().byId("ordersTable");
         // ordersTable.destroyItems();
@@ -187,7 +172,7 @@ sap.ui.define([
         // ordersTable.addItem(newTableJSON);
 
 
-        var Main = Controller.extend("sapui5.Employees.controller.MainView", {});
+        var Main = Controller.extend("sapui5.Employees.controller.MasterEmployee", {});
 
         Main.prototype.onValidate = function () {
             var inputEmployee = this.byId("inputEmployee");
@@ -213,6 +198,7 @@ sap.ui.define([
         Main.prototype.onHideCity = onHideCity;
         Main.prototype.showOrders = showOrders;
         Main.prototype.onCloseOrders = onCloseOrders;
+        Main.prototype.showEmployee = showEmployee;
         return Main;
 
     });
