@@ -1,10 +1,10 @@
 // @ts-nocheck
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "sapui5/Employees/controller/Base.controller",
     "sapui5/Employees/model/formatter",
     "sap/m/MessageBox"
 ],
-    function (Controller, formatter, MessageBox) {
+    function (Base, formatter, MessageBox) {
 
 
         function onInit() {
@@ -113,13 +113,10 @@ sap.ui.define([
             };
             contextObj.TypeX = true;
             context.getModel().refresh();
-        }
+        };
 
 
-
-
-
-        var EmployeeDetails = Controller.extend("sapui5.Employees.controller.EmployeeDetails", {});
+        var EmployeeDetails = Base.extend("sapui5.Employees.controller.EmployeeDetails", {});
 
         EmployeeDetails.prototype.onInit = onInit;
         EmployeeDetails.prototype.onCreateIncidence = onCreateIncidence;

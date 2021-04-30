@@ -1,10 +1,11 @@
 {
-  "welcomeFile": "/index.html",
+ "welcomeFile": "/index.html",
   "authenticationMethod": "none",
   "logout": {
     "logoutEndpoint": "/do/logout"
-  },
-  "routes": [
+    
+    }, 
+    "routes": [
     {
       "authenticationType": "none",
       "csrfProtection": false,
