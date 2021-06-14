@@ -1,0 +1,56 @@
+_schema-version: "3.2"
+ID: pfafc
+version: 0.0.1
+modules:
+- name: pfafc-approuter
+  type: approuter.nodejs
+  path: pfafc-approuter
+  requires:
+  - name: pfafc_html_repo_runtime
+  - name: dest_pfafc
+  parameters:
+    disk-quota: 256M
+    memory: 256M
+- name: pfafc_ui_deployer
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: pfafc_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - PFAFCF-content.zip
+      name: PFAFCF
+      target-path: resources/
+- name: PFAFCF
+  type: html5
+  path: PFAFCF
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+resources:
+- name: pfafc_html_repo_runtime
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-runtime
+- name: pfafc_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-host
+- name: dest_pfafc
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: destination
+    service-plan: lite
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm install

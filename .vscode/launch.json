@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run pfafc-PFAFCF",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/pfafc-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/afcfPFAFCF/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/PFAFCF",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/pfafc/PFAFCF\"}"
+      },
+      "envFile": "${workspaceFolder}/PFAFCF/.env4",
+      "preLaunchTask": "Build pfafc"
+    },
+    {
+      "name": "Run pfafc-PFAFCF",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/pfafc-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/afcfPFAFCF/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/PFAFCF",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/pfafc/PFAFCF\"}"
+      },
+      "envFile": "${workspaceFolder}/PFAFCF/.env5",
+      "preLaunchTask": "Build pfafc"
+    }
+  ]
+}
